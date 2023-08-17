@@ -74,10 +74,10 @@ app.get("/",(req,res)=>{
          <div class="welcome-message">
          <br/>
          <br/>
-          <a href="/users">Go to User Page</a> 
+          <a href="/users">/users</a> 
           
           <br/>
-          <a href="/products">Go to Product Page</a> 
+          <a href="/products">/notes</a> 
                    <br/>
           </div>
        </div>

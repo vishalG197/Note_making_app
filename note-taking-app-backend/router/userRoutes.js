@@ -4,6 +4,17 @@ const express =require('express');
  const bcrypt = require('bcrypt');
  const User = require('../models/User');
  const validateStrongPassword =require("../middleware/validatepass")
+ userRouter.get("/",validateStrongPassword,async(req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    const user = await User().find();
+    
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+})
  userRouter.post("/register",validateStrongPassword,async(req, res) => {
    try {
      const { email, password } = req.body;

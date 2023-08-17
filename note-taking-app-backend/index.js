@@ -77,7 +77,7 @@ app.get("/",(req,res)=>{
           <a href="/users">/users</a> 
           
           <br/>
-          <a href="/products">/notes</a> 
+          <a href="/notes">/notes</a> 
                    <br/>
           </div>
        </div>

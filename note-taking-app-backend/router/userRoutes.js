@@ -8,7 +8,7 @@ const express =require('express');
   try {
     const { email, password } = req.body;
     
-    const user = await User().find();
+    const user = await User.find();
     
     res.status(201).json(user);
   } catch (error) {

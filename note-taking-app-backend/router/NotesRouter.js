@@ -21,7 +21,7 @@ NotesRouter.post("/",async (req, res) => {
        userId: req.body.userId,
      });
      await newNote.save();
-     res.status(201).json(newNote);
+     res.status(200).json(newNote);
    } catch (error) {
      res.status(500).json({ error: error.message });
    }

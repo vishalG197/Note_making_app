@@ -1,13 +1,14 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-
+const {login}=useAuth()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -30,8 +31,9 @@ function Login() {
       
       if(response.ok){
         const responseData = await response.json()
-        console.log(responseData);
+        // console.log(responseData);
         localStorage.setItem("token",responseData.token)
+        login();
         alert("login sucessfully ")
       }else{
         alert("please check your credentials")
@@ -52,6 +54,7 @@ function Login() {
         <input type="email" name="email" placeholder="Email" onChange={handleChange} />
         <br />
         <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+        <details value={"note"}>Note: password should contain at least one uppercase,number and one special character</details>
         <br />
         <button type="submit">Login</button>
       </form>

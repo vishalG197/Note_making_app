@@ -9,13 +9,13 @@ function NotesList() {
 
   useEffect(() => {
     fetchNotes();
-  }, []);
+  }, [editingNote,showEditModal]);
 
   const fetchNotes = async () => {
     try {
       const res = await fetch("https://note-backend-mqdn.onrender.com/notes", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Authorization": `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -30,7 +30,22 @@ function NotesList() {
       console.error(error);
     }
   };
-
+const handleDelete=async(noteId)=>{
+  try {
+    const res = await fetch(`https://note-backend-mqdn.onrender.com/notes/${noteId}`, {
+      method:"DELETE",
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  
+  alert("Note deleted")
+  fetchNotes();
+  } catch (error) {
+    console.log(error.message);
+  }
+  
+}
   const handleEditClick = (note) => {
     setEditingNote(note);
     setShowEditModal(true);
@@ -47,7 +62,7 @@ function NotesList() {
           <li key={note._id}>
             {note.title}<br/>{note.content}
             - <button onClick={() => handleEditClick(note)}>Edit</button>
-            - <button>Delete</button>
+            - <button onClick={()=>handleDelete(note._id)}>Delete</button>
           </li>
         ))}
       </ul>

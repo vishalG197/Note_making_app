@@ -20,10 +20,11 @@ function CreateNote() {
    e.preventDefault();
    try {
     // console.log(localStorage.getItem("token"))
-    const res =await fetch("https://note-backend-mqdn.onrender.com/notes",{
+    let res =await fetch("https://note-backend-mqdn.onrender.com/notes",{
       method: "POST",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        'Content-Type': 'application/json',
     },
     body: JSON.stringify(noteData)
   }

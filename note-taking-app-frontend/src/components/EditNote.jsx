@@ -8,11 +8,19 @@ function EditModal({ note, onClose }) {
   const handleSave = async () => {
     try {
       // Update the note on the server using an API call
-      await axios.put(`https://note-backend-mqdn.onrender.com/notes/${note._id}`, {
-        title: editedTitle,
-        content: editedContent,
-      });
-
+      // await axios.put(`https://note-backend-mqdn.onrender.com/notes/${note._id}`, {
+      //   title: editedTitle,
+      //   content: editedContent,
+      // });
+let res =await fetch(`https://note-backend-mqdn.onrender.com/notes/${note._id}`,{
+  method:"PATCH",
+  headers:{
+    "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    "content-type": "application/json"
+  },
+  body: JSON.stringify({ title: editedTitle,
+       content: editedContent,})
+})
       // Close the modal and update the note in the list
       onClose();
     } catch (error) {

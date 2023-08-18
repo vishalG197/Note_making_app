@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css'; // Import the CSS for styling
+import { useAuth } from './AuthContext';
 
 function Navigation() {
+  const {authenticated,logout}=useAuth();
   return (
     <nav className="navbar">
       <div className="container">
@@ -15,7 +17,7 @@ function Navigation() {
             <Link to="/create">Create Note</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+           {authenticated?<Link onClick={()=>{logout()}}>Logout</Link>:<Link to="/login">Login</Link>}
           </li>
           <li>
             <Link to="/register">Register</Link>

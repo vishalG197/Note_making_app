@@ -2,11 +2,40 @@
 //  require("dotenv").config();
  const app = express();
 const connection=require("./db")
+const swaggerJSdoc = require("swagger-jsdoc");
+const swaggerUIexpress =require("swagger-ui-express");
 const cors =require("cors");
 const NotesRouter = require('./router/NotesRouter');
 const userRouter =require("./router/userRoutes")
 app.use(cors())
 app.use(express.json());
+const options ={
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Note Making App',
+      version: '1.0.0',
+      "description":"API Documentation"
+    },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      }
+    }
+  ,
+  servers:[{
+    url:"http://localhost:8080",
+  }]
+},
+apis:["./router/*.js"]
+}
+//openApispecs
+const openAPIspec=swaggerJSdoc(options);
+app.use("/doc",swaggerUIexpress.serve,swaggerUIexpress.setup(openAPIspec))
 app.use("/notes",NotesRouter)
 app.use("/users",userRouter);
 
